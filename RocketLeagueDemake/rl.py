@@ -39,7 +39,7 @@ class App:
 
     def draw_cars(self):
         # Draw the first car to the screen 
-        pyxel.blt(0, 0, 0, 0, 0, 32, 32, 0)
+        pyxel.blt(0, 0, 0, 0, 0, 32, 32, colkey=0, rotate=90)
 
 # Run this SOB
 App(SCREEN_WIDTH, SCREEN_HEIGHT)
