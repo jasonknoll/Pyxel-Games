@@ -9,8 +9,27 @@ import pyxel
  Pyxel. We'll see how I do!
 """
 
+class Car:
+    def __init__(self):
+        self.x = 0
+        self.y = 0
+
+    def draw(self, sheet_x, sheet_y):
+        pyxel.blt(self.x, self.y, 0, sheet_x, sheet_y, 32, 32, colkey=2)
+
+    def move(self):
+        pass
+
+
 SCREEN_HEIGHT = 168
 SCREEN_WIDTH = 256
+
+blue_car = Car()
+orange_car = Car()
+
+orange_car.x = 64
+orange_car.y = 64
+
 
 class App:
     def __init__(self, width, height):
@@ -18,7 +37,7 @@ class App:
         pyxel.images[0].load(0, 0,'assets/blue_rl_car.png', incl_colors=False)
         pyxel.images[0].load(32, 32, 'assets/orange_rl_car.png', incl_colors=False)
         pyxel.run(self.update, self.draw)
-
+        
     # Check for player input
     # Check for collisions
     # Update x, y values
@@ -40,15 +59,9 @@ class App:
 
     def draw_cars(self):
         # Draw the first car to the screen 
-        pyxel.blt(0, 0, 0, 0, 0, 32, 32, colkey=2) # Blue Car
-        pyxel.blt(64, 64, 0, 32, 32, 32, 32, colkey=2) # Orange car
+        blue_car.draw(0, 0) # Blue Car
 
-
-class Car:
-    def __init__(self):
-        pass
-
-
+        orange_car.draw(32, 32) # Orange car
 
 # Run this SOB
 App(SCREEN_WIDTH, SCREEN_HEIGHT)
