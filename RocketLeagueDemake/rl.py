@@ -9,6 +9,16 @@ import pyxel
  Pyxel. We'll see how I do!
 """
 
+# Constants
+
+SCREEN_HEIGHT = 168
+SCREEN_WIDTH = 256
+
+BLUE_STARTING_XY = (0, 134)
+
+MOVE_AMOUNT = 1
+
+
 class Car:
     def __init__(self):
         self.x = 0
@@ -17,15 +27,22 @@ class Car:
     def draw(self, sheet_x, sheet_y):
         pyxel.blt(self.x, self.y, 0, sheet_x, sheet_y, 32, 32, colkey=2)
 
-    def move(self):
-        pass
+    def move(self, dir=None):
+        # Forward and backward movement
+        if (dir=="f"):
+            self.x += MOVE_AMOUNT
+        elif (dir == "b"):
+            self.x -= MOVE_AMOUNT
 
 
-SCREEN_HEIGHT = 168
-SCREEN_WIDTH = 256
+
+# Maybe add these to App class as member vars
 
 blue_car = Car()
 orange_car = Car()
+
+blue_car.x = BLUE_STARTING_XY[0]
+blue_car.y = BLUE_STARTING_XY[1]
 
 orange_car.x = 64
 orange_car.y = 64
@@ -42,7 +59,10 @@ class App:
     # Check for collisions
     # Update x, y values
     def update(self):
-        pass
+        if (pyxel.btn(pyxel.KEY_W)):
+            blue_car.move('f')
+        elif (pyxel.btn(pyxel.KEY_S)):
+            blue_car.move('b')
 
     # render everything
     def draw(self):
