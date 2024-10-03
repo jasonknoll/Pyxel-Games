@@ -15,8 +15,11 @@ SCREEN_HEIGHT = 168
 SCREEN_WIDTH = 256
 
 BLUE_STARTING_XY = (0, 134)
+ORAGNE_STARTING_XY = (224, 134)
 
-MOVE_AMOUNT = 1
+MOVE_AMOUNT = 1 # pixels
+
+BACKGROUND_COLOR = 2
 
 
 class Car:
@@ -25,7 +28,7 @@ class Car:
         self.y = 0
 
     def draw(self, sheet_x, sheet_y):
-        pyxel.blt(self.x, self.y, 0, sheet_x, sheet_y, 32, 32, colkey=2)
+        pyxel.blt(self.x, self.y, 0, sheet_x, sheet_y, 32, 32, colkey=BACKGROUND_COLOR)
 
     def move(self, dir=None):
         # Forward and backward movement
@@ -44,8 +47,8 @@ orange_car = Car()
 blue_car.x = BLUE_STARTING_XY[0]
 blue_car.y = BLUE_STARTING_XY[1]
 
-orange_car.x = 64
-orange_car.y = 64
+orange_car.x = ORAGNE_STARTING_XY[0]
+orange_car.y = ORAGNE_STARTING_XY[1]
 
 
 class App:
@@ -64,11 +67,16 @@ class App:
         elif (pyxel.btn(pyxel.KEY_S)):
             blue_car.move('b')
 
+        # TODO check for collisions
+        # TODO add physics lmao
+
     # render everything
     def draw(self):
-        pyxel.cls(2) # draw some tint to the background while clearing the screen
+        pyxel.cls(BACKGROUND_COLOR) # draw some tint to the background while clearing the screen
 
         self.draw_cars()
+
+        pyxel.circ(128, 84, 8, 7) # ball
 
     # Draw game objects
     def draw_walls():
