@@ -23,26 +23,32 @@ BACKGROUND_COLOR = 2
 
 
 class Car:
-    def __init__(self):
+    def __init__(self, color=None):
         self.x = 0
         self.y = 0
+        self.color = color
 
     def draw(self, sheet_x, sheet_y):
         pyxel.blt(self.x, self.y, 0, sheet_x, sheet_y, 32, 32, colkey=BACKGROUND_COLOR)
 
     def move(self, dir=None):
-        # Forward and backward movement
-        if (dir=="f"):
+        # Forward and backward movement for blue
+        if (dir=="f" and self.color == 0):
             self.x += MOVE_AMOUNT
-        elif (dir == "b"):
+        elif (dir == "b" and self.color == 0):
             self.x -= MOVE_AMOUNT
+
+        if (dir=='f' and self.color == 1):
+            self.x -= MOVE_AMOUNT
+        elif(dir == 'b' and self.color == 1):
+            self.x += MOVE_AMOUNT
 
 
 
 # Maybe add these to App class as member vars
 
-blue_car = Car()
-orange_car = Car()
+blue_car = Car(0)
+orange_car = Car(1)
 
 blue_car.x = BLUE_STARTING_XY[0]
 blue_car.y = BLUE_STARTING_XY[1]
@@ -54,8 +60,11 @@ orange_car.y = ORAGNE_STARTING_XY[1]
 class App:
     def __init__(self, width, height):
         pyxel.init(width, height, quit_key=pyxel.KEY_ESCAPE, title="Retro Car Soccer")
+
+        # Add sprites to virutal spritesheet
         pyxel.images[0].load(0, 0,'assets/blue_rl_car.png', incl_colors=False)
         pyxel.images[0].load(32, 32, 'assets/orange_rl_car.png', incl_colors=False)
+
         pyxel.run(self.update, self.draw)
         
     # Check for player input
@@ -66,6 +75,11 @@ class App:
             blue_car.move('f')
         elif (pyxel.btn(pyxel.KEY_S)):
             blue_car.move('b')
+
+        if (pyxel.btn(pyxel.KEY_UP)):
+            orange_car.move('f')
+        elif (pyxel.btn(pyxel.KEY_DOWN)):
+            orange_car.move('b')
 
         # TODO check for collisions
         # TODO add physics lmao
