@@ -16,6 +16,7 @@ SCREEN_WIDTH = 256
 
 BLUE_STARTING_XY = (0, 134)
 ORAGNE_STARTING_XY = (224, 134)
+BALL_STARTING_XY = (128, 84) # ehhhhh maybe idk
 
 MOVE_AMOUNT = 1 # pixels
 
